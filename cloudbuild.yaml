@@ -36,6 +36,8 @@ steps:
       - '${_IMAGE_NAME}'
       - '--zone'
       - 'asia-northeast1-a'
+      - '--network'
+      - 'vpc-dev'
 #options:
 #  machineType: 'N1_HIGHCPU_8'
 substitutions:
