@@ -1,0 +1,46 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '-t'
+      - '${_IMAGE_NAME}'
+      - .
+    id: Build
+  - name: gcr.io/cloud-builders/wget
+    args:
+      - >-
+        https://github.com/aquasecurity/trivy/releases/download/v0.35.0/trivy_0.35.0_Linux-64bit.deb
+  #- name: ubuntu
+  #  args:
+  #    - '-c'
+  #    - >
+  #      dpkg -i trivy_0.35.0_Linux-64bit.deb && \
+
+  #      trivy --version && \
+
+  #      TRIVY_INSECURE=true trivy image --severity CRITICAL ${_IMAGE_NAME}
+  #  id: Security Scan
+  #  entrypoint: /bin/sh
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - '${_IMAGE_NAME}'
+    id: Push
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: 
+      - 'compute'
+      - 'instances'
+      - 'create-with-container'
+      - 'mqtt-speedtest'
+      - '--zone'
+      - 'asia-northeast1'
+#options:
+#  machineType: 'N1_HIGHCPU_8'
+substitutions:
+  _IMAGE_NAME: >-
+    ${_ARTIFACT_HOST}/${PROJECT_ID}/${_ARTIFACT_REPO}/${_SERVICE_NAME}:${_IMAGE_TAG}
+  _ARTIFACT_HOST: '${_ARTIFACT_HOST}'
+  _ARTIFACT_REPO: '${_ARTIFACT_REPO}'
+  _SERVICE_NAME: '${_SERVICE_NAME}'
+  _REGION: '${_REGION}'
+  _IMAGE_TAG: '${BUILD_ID}'
