@@ -32,6 +32,8 @@ steps:
       - 'instances'
       - 'create-with-container'
       - 'mqtt-speedtest'
+      - '--container-image'
+      - '${_IMAGE_NAME}'
       - '--zone'
       - 'asia-northeast1'
 #options:
