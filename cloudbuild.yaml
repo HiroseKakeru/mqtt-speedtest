@@ -35,7 +35,7 @@ steps:
       - '--container-image'
       - '${_IMAGE_NAME}'
       - '--zone'
-      - 'asia-northeast1'
+      - 'asia-northeast1-a'
 #options:
 #  machineType: 'N1_HIGHCPU_8'
 substitutions:
