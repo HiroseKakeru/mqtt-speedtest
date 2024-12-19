@@ -21,10 +21,11 @@ func init() {
 
 var exitCode = 0
 
-func exitWithErr(err any) {
-	exitCode = 1
-	log.Println(err)
-}
+//	func exitWithErr(err any) {
+//		exitCode = 1
+//		log.Println(err)
+//	}
+
 func main() {
 	defer os.Exit(exitCode)
 
